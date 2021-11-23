@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test bootstrap</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script src="./create-group.js"></script>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="./create-user.html"
+            >User</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./create-article.html">Article</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="./create-group.html">Group</a>
+        </li>
+      </ul>
+    </nav>
+  </head>
+  <body class="bg-light">
+    <h1 class="d-flex justify-content-center pt-3">Test bootstrap!</h1>
+    <p class="text-center px-lg-5 pt-5 pb-5">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the
+      1500s, when an unknown printer took a galley of type and scrambled it to
+      make a type specimen book. It has survived not only five centuries, but
+      also the leap into electronic typesetting, remaining essentially
+      unchanged. It was popularised in the 1960s with the release of Letraset
+      sheets containing Lorem Ipsum passages, and more recently with desktop
+      publishing software like Aldus PageMaker including versions of Lorem
+      Ipsum.
+    </p>
+    <!--CREATE GROUP -->
+    <div class="px-lg-5 mb-3">
+      <h2 class="mt-5">Create group</h2>
+      <div class="col">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Name group"
+          id="name"
+          aria-label="Name group"
+        />
+      </div>
+      <button
+        onclick="apiButtonG()"
+        type="submit"
+        class="btn btn-primary"
+        style="margin-top: 10px"
+      >
+        Create
+      </button>
+    </div>
+
+    <!--TABLE-->
+    <style>
+      table {
+        counter-reset: section;
+      }
+
+      .count:before {
+        counter-increment: section;
+        content: counter(section);
+      }
+    </style>
+
+    <table
+      class="table mt-3 mb-5 g-col-4"
+      style="width: 40%; margin-left: 50px"
+    >
+      <thead>
+        <tr>
+          <th scope="col">Nr.group</th>
+          <th scope="col">Name group</th>
+        </tr>
+      </thead>
+      <tbody id="t-body2">
+        <!-- generated automatically -->
+      </tbody>
+    </table>
+
+    <!--ADD USER -->
+    <div class="px-lg-5 mb-3">
+      <h2 class="mt-5">Add user to a group</h2>
+      <h5 class="fw-light mt-4">Select user</h5>
+      <select
+        id="group-user"
+        class="form-select mb-3"
+        aria-label="Default select example"
+      ></select>
+      <h5 class="fw-light mt-4">Select group</h5>
+      <select
+        id="group-name"
+        class="form-select"
+        aria-label="Default select example"
+      ></select>
+      <button
+        onclick="apiButtonAG()"
+        type="submit"
+        class="btn btn-primary mt-2"
+      >
+        Add
+      </button>
+    </div>
+
+    <style>
+      table {
+        counter-reset: section;
+      }
+
+      .count:before {
+        counter-increment: section;
+        content: counter(section);
+      }
+    </style>
+
+    <table
+      class="table mt-3 mb-5 g-col-4"
+      style="width: 40%; margin-left: 50px"
+    >
+      <thead>
+        <tr>
+          <th scope="col">Number</th>
+          <th scope="col">Name group</th>
+          <th scope="col">User</th>
+        </tr>
+      </thead>
+      <tbody id="t-body3">
+        <!-- generated automatically -->
+      </tbody>
+    </table>
+
+    <!-- Modal pentru primul tabel -->
+    <div
+      class="modal"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onclick="closeModalG()"
+            ></button>
+          </div>
+          User id: <span id="m-idG"></span>
+          <div class="modal-body row mb-1">
+            Name group <input id="m-name" type="text" />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              onclick="closeModalG()"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="saveChangesG()"
+            >
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal pentru al doilea tabel -->
+    <div
+      class="modal"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onclick="closeModalAG()"
+            ></button>
+          </div>
+          Id: <span id="m-idAG"></span>
+          <div class="modal-body row mb-1">
+            Select user
+            <select
+              id="group-add-user"
+              class="form-select"
+              aria-label="Default select example"
+            ></select>
+            Select group
+            <select
+              id="group-add-group"
+              class="form-select"
+              aria-label="Default select example"
+            ></select>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              onclick="closeModalAG()"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="saveChangesAG()"
+            >
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
