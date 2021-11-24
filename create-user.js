@@ -74,7 +74,7 @@ fetch(apiUrl)
 
       btne.textContent = "Edit";
       btne.type = "button";
-      btne.className = "btn btn-outline-warning ";
+      btne.className = "btn btn-outline-warning";
       btne.toggle = "modal";
       btne.onclick = () => {
         document.getElementById("exampleModal").style.display = "block";
