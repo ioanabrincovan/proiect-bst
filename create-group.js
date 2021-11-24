@@ -193,27 +193,6 @@ function apiButtonAG() {
     });
 }
 
-// CREATE BTN DELETE ADD
-
-function deleteButtonAGU(groupId) {
-  console.log("delete");
-  var apiUrl = "https://liteproject12.herokuapp.com/group/rel/user" + groupId;
-
-  var d = confirm("Doriti sa-l stergeti?");
-  if (!d) return;
-
-  fetch(apiUrl, { method: "DELETE" })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      location.reload();
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
 //CREATE TABLE ADD
 var apiUrl = "https://liteproject12.herokuapp.com/group/rel/user";
 fetch(apiUrl)
@@ -280,17 +259,17 @@ fetch(apiUrl)
       btn.type = "button";
       btn.className = "btn btn-outline-danger";
       btn.onclick = () => {
-        deleteButtonAGU(groupId);
+        deleteButtonAGU(rel.id);
       };
 
       btne.textContent = "Edit";
       btne.type = "button";
       btne.className = "btn btn-outline-warning";
       btne.onclick = async () => {
-        document.getElementById("exampleModal").style.display = "block";
-        document.getElementById("m-idAG").innerHTML = group.id;
-        document.getElementById("group-add-user").value = group.user;
-        document.getElementById("group-add-group").value = group.group;
+        document.getElementById("exampleModal2").style.display = "block";
+        document.getElementById("m-idAG").innerHTML = rel.id;
+        document.getElementById("group-add-user").value = rel.user;
+        document.getElementById("group-add-group").value = rel.group;
       };
 
       tdBtn.appendChild(btn);
@@ -311,19 +290,41 @@ fetch(apiUrl)
     console.error(err);
   });
 
+// CREATE BTN DELETE ADD
+function deleteButtonAGU(relId) {
+  console.log("delete");
+  var apiUrl = "https://liteproject12.herokuapp.com/group/rel/user/" + relId;
+
+  var d = confirm("Doriti sa-l stergeti?");
+  if (!d) return;
+
+  fetch(apiUrl, { method: "DELETE" })
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then((data) => {
+      location.reload();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 //BTN CLOSE POPUP
 function closeModalAG() {
-  document.getElementById("exampleModal").style.display = "none";
+  document.getElementById("exampleModal2").style.display = "none";
 }
 //BTN SAVE CHANGES POPUP
 function saveChangesAG() {
   console.log("ok");
   const mIdAG = document.getElementById("m-idAG").textContent;
-  var apiUrl = "https://liteproject12.herokuapp.com/group/" + mIdAG;
+  var apiUrl = "https://liteproject12.herokuapp.com/group/rel/user/" + mIdAG;
   const data = {
     user: document.getElementById("group-add-user").value,
     group: document.getElementById("group-add-group").value,
   };
+  // console.log(data);
   fetch(apiUrl, {
     headers: {
       Accept: "application/json",
@@ -333,6 +334,7 @@ function saveChangesAG() {
     body: JSON.stringify(data),
   })
     .then((response) => {
+      console.log(response);
       return response.json();
     })
     .then((data) => {
